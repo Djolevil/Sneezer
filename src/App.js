@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [album, setAlbum] = useState({});
+
+  const fetchAlbumDataHandler = async () => {
+    try {
+      const response = await fetch('https://api.deezer.com/album/93733532');
+      // const response = await fetch("https://swapi.dev/api/films/1/");
+      const albumData = await response.json();
+      setAlbum(albumData);
+      console.log(albumData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Sneezer</h1>
+      <p>Nose around that Deezer music library!</p>
+      <button onClick={fetchAlbumDataHandler}>Get album data</button>
+      <div>{album.title}</div>
     </div>
   );
 }
