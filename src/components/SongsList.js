@@ -7,7 +7,7 @@ const SongsList = (props) => {
             return <Song title={song.title} />;
         })
     }
-    return;
+    return <p>No songs found!</p>;
 }
 
 export default SongsList;
