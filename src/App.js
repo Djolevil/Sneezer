@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Album from './components/Album';
-import Loading from './components/Loading';
+import LoadingSpinner from './components/LoadingSpinner';
 
 const App = () => {
   const [album, setAlbum] = useState();
@@ -30,7 +30,7 @@ const App = () => {
       <h1>Sneezer</h1>
       <p>Nose around that Deezer music library!</p>
       <button onClick={fetchAlbumDataHandler} disabled={isLoading}>Get album data</button>
-      {isLoading && <Loading />}
+      {isLoading && <LoadingSpinner />}
       {!isLoading && album && <Album
         title={album.title}
         releaseDate={album.release_date}
