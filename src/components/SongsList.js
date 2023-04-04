@@ -2,12 +2,12 @@ import React from 'react';
 import Song from './Song';
 
 const SongsList = (props) => {
-    if(props.songs) {
-        props.songs.map((song) => {
-            return <Song title={song.title} />;
-        })
-    }
-    return <p>No songs found!</p>;
+    return (
+        <div>
+        {props.songs.map((song) => (<Song title={song.title} key={song.id}/>))}
+        </div>
+    );
 }
 
 export default SongsList;
+

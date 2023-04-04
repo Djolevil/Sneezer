@@ -17,11 +17,11 @@ const App = () => {
       const albumData = await response.json();
 
       setAlbum(albumData);
-      setIsLoading(false)
+      setIsLoading(false);
       console.log(albumData);
     } catch (error) {
       console.log(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
