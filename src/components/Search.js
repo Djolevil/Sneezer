@@ -12,6 +12,10 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
+    if (searchTerm === '') {
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(true);
     const timer = setTimeout(async () => {
       try {
@@ -21,11 +25,10 @@ const SearchBar = () => {
         const resultsData = await response.json();
         console.log(resultsData);
         setSearchResults(resultsData);
-        setIsLoading(false);
       } catch (error) {
         console.log(error);
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }, 500);
 
     return () => {
@@ -39,7 +42,7 @@ const SearchBar = () => {
         <input type='text' onChange={searchInputHandler} />
       </div>
       {isLoading && <LoadingSpinner />}
-      {!isLoading && searchResults && <SongsList songs={searchResults.data} />}
+      {!isLoading && searchTerm !== '' && searchResults && <SongsList songs={searchResults.data} />}
     </React.Fragment>
   );
 };
