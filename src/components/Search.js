@@ -36,6 +36,28 @@ const SearchBar = () => {
     };
   }, [searchTerm]);
 
+  const loadNextHandler = async () => {
+        try {
+         const response = await fetch(`https://cors-anywhere.herokuapp.com/${searchResults.next}`);
+         const resultsData = await response.json();
+         console.log(resultsData);
+         setSearchResults(resultsData);
+        } catch (error) {
+         console.log(error);
+        }
+      } 
+
+  const loadPreviousHandler = async () => {
+        try {
+         const response = await fetch(`https://cors-anywhere.herokuapp.com/${searchResults.prev}`);
+         const resultsData = await response.json();
+         console.log(resultsData);
+         setSearchResults(resultsData);
+        } catch (error) {
+         console.log(error);
+        }
+      } 
+
   return (
     <React.Fragment>
       <div>
@@ -43,6 +65,8 @@ const SearchBar = () => {
       </div>
       {isLoading && <LoadingSpinner />}
       {!isLoading && searchTerm !== '' && searchResults && <SongsList songs={searchResults.data} />}
+      {<button onClick={loadPreviousHandler}>Previous</button>}
+      {<button onClick={loadNextHandler}>Next</button>}
     </React.Fragment>
   );
 };
