@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SongsList from './SongsList';
 import LoadingSpinner from './LoadingSpinner';
 
-const SearchBar = () => {
+const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +16,7 @@ const SearchBar = () => {
       setIsLoading(false);
       return;
     }
+    
     setIsLoading(true);
     const timer = setTimeout(async () => {
       try {
@@ -65,10 +66,10 @@ const SearchBar = () => {
       </div>
       {isLoading && <LoadingSpinner />}
       {!isLoading && searchTerm !== '' && searchResults && <SongsList songs={searchResults.data} />}
-      {<button onClick={loadPreviousHandler}>Previous</button>}
-      {<button onClick={loadNextHandler}>Next</button>}
+      {!isLoading && searchResults && searchResults.prev && <button onClick={loadPreviousHandler}>Previous</button>}
+      {!isLoading && searchResults && searchResults.next && <button onClick={loadNextHandler}>Next</button>}
     </React.Fragment>
   );
 };
 
-export default SearchBar;
+export default Search;
