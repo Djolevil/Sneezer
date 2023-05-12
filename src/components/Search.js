@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import SongsList from './SongsList';
+import React, { useState, useEffect } from "react";
+import SongsList from "./SongsList";
 import LoadingSpinner from './LoadingSpinner';
+import useHttp from '../hooks/use-http';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { isLoading, sendRequest: fetchSongs, searchResults, setSearchResults } = useHttp();
 
   const searchInputHandler = (event) => {
     setSearchTerm(event.target.value);
@@ -13,51 +14,31 @@ const Search = () => {
 
   useEffect(() => {
     if (searchTerm === '') {
-      setIsLoading(false);
+      setSearchResults(null);
+      console.log('Empty search term!');
       return;
     }
-    
-    setIsLoading(true);
-    const timer = setTimeout(async () => {
-      try {
-        const response = await fetch(
-          `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${searchTerm}`
-        );
-        const resultsData = await response.json();
-        console.log(resultsData);
-        setSearchResults(resultsData);
-      } catch (error) {
-        console.log(error);
-      }
-      setIsLoading(false);
+
+    const timer = setTimeout(() => {
+      fetchSongs({
+        url: `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${searchTerm}`,
+      });
     }, 500);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchTerm]);
+    return () => clearTimeout(timer);
+  }, [searchTerm, fetchSongs, setSearchResults]);
 
-  const loadNextHandler = async () => {
-        try {
-         const response = await fetch(`https://cors-anywhere.herokuapp.com/${searchResults.next}`);
-         const resultsData = await response.json();
-         console.log(resultsData);
-         setSearchResults(resultsData);
-        } catch (error) {
-         console.log(error);
-        }
-      } 
+  const loadPreviousHandler = () => {
+    fetchSongs({
+      url: `https://cors-anywhere.herokuapp.com/${searchResults.prev}`,
+    });
+  };
 
-  const loadPreviousHandler = async () => {
-        try {
-         const response = await fetch(`https://cors-anywhere.herokuapp.com/${searchResults.prev}`);
-         const resultsData = await response.json();
-         console.log(resultsData);
-         setSearchResults(resultsData);
-        } catch (error) {
-         console.log(error);
-        }
-      } 
+  const loadNextHandler = () => {
+    fetchSongs({
+      url: `https://cors-anywhere.herokuapp.com/${searchResults.next}`,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -65,9 +46,15 @@ const Search = () => {
         <input type='text' onChange={searchInputHandler} />
       </div>
       {isLoading && <LoadingSpinner />}
-      {!isLoading && searchTerm !== '' && searchResults && <SongsList songs={searchResults.data} />}
-      {!isLoading && searchResults && searchResults.prev && <button onClick={loadPreviousHandler}>Previous</button>}
-      {!isLoading && searchResults && searchResults.next && <button onClick={loadNextHandler}>Next</button>}
+      {!isLoading && searchTerm !== '' && searchResults && (
+        <SongsList songs={searchResults.data} />
+      )}
+      {!isLoading && searchTerm !== '' && searchResults && searchResults.prev && (
+        <button onClick={loadPreviousHandler}>Previous</button>
+      )}
+      {!isLoading && searchTerm !== '' && searchResults && searchResults.next && (
+        <button onClick={loadNextHandler}>Next</button>
+      )}
     </React.Fragment>
   );
 };
