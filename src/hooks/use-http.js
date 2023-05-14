@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 const useHttp = () => {
-  const [searchResults, setSearchResults] = useState();
+  const [results, setResults] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const sendRequest = useCallback(async (requestConfig) => {
@@ -14,7 +14,7 @@ const useHttp = () => {
       });
       const resultsData = await response.json();
       console.log(resultsData);
-      setSearchResults(resultsData);
+      setResults(resultsData);
     } catch (error) {
       console.log(error);
     }
@@ -24,8 +24,8 @@ const useHttp = () => {
   return {
     isLoading,
     sendRequest,
-    searchResults,
-    setSearchResults,
+    results,
+    setResults,
   };
 };
 

@@ -6,7 +6,7 @@ import useHttp from '../hooks/use-http';
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { isLoading, sendRequest: fetchSongs, searchResults, setSearchResults } = useHttp();
+  const { isLoading, sendRequest: fetchSongs, results, setResults } = useHttp();
 
   const searchInputHandler = (event) => {
     setSearchTerm(event.target.value);
@@ -14,7 +14,7 @@ const Search = () => {
 
   useEffect(() => {
     if (searchTerm === '') {
-      setSearchResults(null);
+      setResults(null);
       console.log('Empty search term!');
       return;
     }
@@ -26,17 +26,17 @@ const Search = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchTerm, fetchSongs, setSearchResults]);
+  }, [searchTerm, fetchSongs, setResults]);
 
   const loadPreviousHandler = () => {
     fetchSongs({
-      url: `https://cors-anywhere.herokuapp.com/${searchResults.prev}`,
+      url: `https://cors-anywhere.herokuapp.com/${results.prev}`,
     });
   };
 
   const loadNextHandler = () => {
     fetchSongs({
-      url: `https://cors-anywhere.herokuapp.com/${searchResults.next}`,
+      url: `https://cors-anywhere.herokuapp.com/${results.next}`,
     });
   };
 
@@ -46,13 +46,13 @@ const Search = () => {
         <input type='text' onChange={searchInputHandler} />
       </div>
       {isLoading && <LoadingSpinner />}
-      {!isLoading && searchTerm !== '' && searchResults && (
-        <SongsList songs={searchResults.data} />
+      {!isLoading && searchTerm !== '' && results && (
+        <SongsList songs={results.data} />
       )}
-      {!isLoading && searchTerm !== '' && searchResults && searchResults.prev && (
+      {!isLoading && searchTerm !== '' && results && results.prev && (
         <button onClick={loadPreviousHandler}>Previous</button>
       )}
-      {!isLoading && searchTerm !== '' && searchResults && searchResults.next && (
+      {!isLoading && searchTerm !== '' && results && results.next && (
         <button onClick={loadNextHandler}>Next</button>
       )}
     </React.Fragment>
