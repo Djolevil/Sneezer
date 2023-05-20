@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import SongsList from './SongsList';
+import TracksList from './TracksList';
 import LoadingSpinner from './LoadingSpinner';
 import useHttp from '../hooks/use-http';
 
@@ -87,13 +87,13 @@ const Search = () => {
         <input type='text' onChange={searchInputHandler} />
       </div>
       {isLoading && <LoadingSpinner />}
-      {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'track' && results && (
-        <SongsList songs={results.data} />
+      {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'track'  && results && (
+        <TracksList tracks={results.data} />
       )}
-      {!isLoading && searchState.searchTerm !== '' && results && results.prev && (
+      {!isLoading && searchState.searchTerm.trim() !== '' && results && results.prev && (
         <button onClick={loadPreviousHandler}>Previous</button>
       )}
-      {!isLoading && searchState.searchTerm !== '' && results && results.next && (
+      {!isLoading && searchState.searchTerm.trim() !== '' && results && results.next && (
         <button onClick={loadNextHandler}>Next</button>
       )}
     </React.Fragment>
