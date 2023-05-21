@@ -11,6 +11,7 @@ const TracksList = (props) => {
       albumTitle={track.album.title}
       albumCover={track.album.cover_small}
       key={track.id}
+      preview={track.preview}
     />
   ));
   

@@ -12,6 +12,9 @@ const Track = (props) => {
       <span>
         <img src={props.albumCover} alt='' />
       </span>
+      <span>
+        <a href={props.preview}>Play preview</a>
+      </span>
     </div>
   );
 };
