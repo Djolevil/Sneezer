@@ -39,14 +39,17 @@ const Search = () => {
 
   const tracksPressedHandler = (event) => {
     dispatch({ type: 'SEARCH_TRACKS' });
+    setResults(null);
   };
 
   const albumsPressedHandler = (event) => {
     dispatch({ type: 'SEARCH_ALBUMS' });
+    setResults(null);
   };
 
   const artistPressedHandler = (event) => {
     dispatch({ type: 'SEARCH_ARTISTS' });
+    setResults(null);
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import Album from './Album';
 
 const AlbumsList = (props) => {
 
-  const albums = props.albums.map((album) => (
+  const albums = props.albums[0].type === 'album' ? props.albums.map((album) => (
     <Album
       albumTitle={album.title}
       albumCover={album.cover_small}
@@ -12,7 +12,7 @@ const AlbumsList = (props) => {
       numberOfTracks={album.nb_tracks}
       key={album.id}
     />
-  ));
+  )) : [];
 
   return (
     <div>

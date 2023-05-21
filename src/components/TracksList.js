@@ -3,7 +3,7 @@ import Track from './Track';
 
 const TracksList = (props) => {
 
-  const tracks = props.tracks.map((track) => (
+  const tracks = props.tracks[0].type === 'track' ? props.tracks.map((track) => (
     <Track
       title={track.title}
       artist={track.artist.name}
@@ -13,7 +13,7 @@ const TracksList = (props) => {
       key={track.id}
       preview={track.preview}
     />
-  ));
+  )) : [];
   
   return (
     <div>
