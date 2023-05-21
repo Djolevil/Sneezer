@@ -1,7 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import TracksList from './TracksList';
+import AlbumsList from './AlbumsList';
 import LoadingSpinner from './LoadingSpinner';
 import useHttp from '../hooks/use-http';
+import ArtistsList from './ArtistsList';
 
 const defaultSearchState = {
   searchType: 'track',
@@ -89,6 +91,12 @@ const Search = () => {
       {isLoading && <LoadingSpinner />}
       {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'track'  && results && (
         <TracksList tracks={results.data} />
+      )}
+      {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'album'  && results && (
+        <AlbumsList albums={results.data} />
+      )}
+      {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'artist'  && results && (
+        <ArtistsList artists={results.data} />
       )}
       {!isLoading && searchState.searchTerm.trim() !== '' && results && results.prev && (
         <button onClick={loadPreviousHandler}>Previous</button>
