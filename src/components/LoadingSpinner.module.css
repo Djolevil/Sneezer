@@ -1,8 +1,8 @@
   .spinner {
     width: 70px;
     height: 70px;
-    border: 14px solid #ececec;
-    border-top: 14px solid #000000; 
+    border: 14px solid bisque;
+    border-top: 14px solid lightsalmon; 
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }

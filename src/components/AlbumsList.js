@@ -1,5 +1,6 @@
 import React from 'react';
 import Album from './Album';
+import classes from './AlbumsList.module.css';
 
 const AlbumsList = (props) => {
 
@@ -15,7 +16,7 @@ const AlbumsList = (props) => {
   )) : [];
 
   return (
-    <div>
+    <div className={classes.container}>
         {albums}
     </div>
   );

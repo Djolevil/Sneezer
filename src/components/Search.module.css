@@ -1,0 +1,19 @@
+.button {
+    margin: 4px;
+    width: 60px;
+    border: 1px solid lightgray;
+    background-color: bisque;
+    border-radius: 10px;
+}
+
+.button:hover {
+    border-color: black;
+}
+
+.button:active {
+    background-color: lightsalmon;
+}
+
+.search-input {
+    border: 1px solid lightgray;
+}

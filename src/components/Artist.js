@@ -1,19 +1,16 @@
 import React from 'react';
+import classes from './Artist.module.css';
 
 const Artist = (props) => {
-    return (
-        <div>
-            <span>
-                {props.artistName}
-            </span>
-            <span>
-               <img src={props.artistPicture} alt='' />
-            </span>
-            <span>
-                {props.numberOfFans}
-            </span>
-        </div>
-    );
+  return (
+    <div className={classes.container}>
+      <span>
+        {props.artistName}
+        <img src={props.artistPicture} alt='' />
+      </span>
+      <span>{props.numberOfFans}</span>
+    </div>
+  );
 };
 
 export default Artist;

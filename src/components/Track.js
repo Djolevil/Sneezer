@@ -1,15 +1,16 @@
 import React from 'react';
+import classes from './Track.module.css';
 
 const Track = (props) => {
   return (
-    <div>
+    <div className={classes.container}>
       <span>{props.title}</span>
-      <span>{props.artist}</span>
       <span>
+        {props.artist}
         <img src={props.artistPicture} alt='' />
       </span>
-      <span>{props.albumTitle}</span>
       <span>
+        {props.albumTitle}
         <img src={props.albumCover} alt='' />
       </span>
       <span>

@@ -1,14 +1,15 @@
 import React from 'react';
+import classes from './Album.module.css';
 
 const Album = (props) => {
   return (
-    <div>
-      <span>{props.albumTitle}</span>
+    <div className={classes.container}>
       <span>
+        {props.albumTitle}
         <img src={props.albumCover} alt='' />
       </span>
-      <span>{props.artist}</span>
       <span>
+        {props.artist}
         <img src={props.artistPicture} alt='' />
       </span>
       <span>{props.numberOfTracks}</span>

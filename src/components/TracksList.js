@@ -1,5 +1,6 @@
 import React from 'react';
 import Track from './Track';
+import classes from './TracksList.module.css';
 
 const TracksList = (props) => {
 
@@ -16,7 +17,7 @@ const TracksList = (props) => {
   )) : [];
   
   return (
-    <div>
+    <div className={classes.container}>
       {tracks}
     </div>
   );

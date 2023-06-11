@@ -4,6 +4,7 @@ import AlbumsList from './AlbumsList';
 import LoadingSpinner from './LoadingSpinner';
 import useHttp from '../hooks/use-http';
 import ArtistsList from './ArtistsList';
+import classes from './Search.module.css'
 
 const defaultSearchState = {
   searchType: 'track',
@@ -84,12 +85,12 @@ const Search = () => {
   return (
     <React.Fragment>
       <div>
-        <button onClick={tracksPressedHandler}>Tracks</button>
-        <button onClick={albumsPressedHandler}>Albums</button>
-        <button onClick={artistPressedHandler}>Artists</button>
+        <button onClick={tracksPressedHandler} className={classes.button}>Tracks</button>
+        <button onClick={albumsPressedHandler} className={classes.button}>Albums</button>
+        <button onClick={artistPressedHandler} className={classes.button}>Artists</button>
       </div>
       <div>
-        <input type='text' onChange={searchInputHandler} />
+        <input type='text' placeholder='Search' onChange={searchInputHandler} className={classes['search-input']}/>
       </div>
       {isLoading && <LoadingSpinner />}
       {!isLoading && searchState.searchTerm !== '' && searchState.searchType === 'track'  && results && (
@@ -102,10 +103,10 @@ const Search = () => {
         <ArtistsList artists={results.data} />
       )}
       {!isLoading && searchState.searchTerm.trim() !== '' && results && results.prev && (
-        <button onClick={loadPreviousHandler}>Previous</button>
+        <button onClick={loadPreviousHandler} className={classes.button}>Previous</button>
       )}
       {!isLoading && searchState.searchTerm.trim() !== '' && results && results.next && (
-        <button onClick={loadNextHandler}>Next</button>
+        <button onClick={loadNextHandler} className={classes.button}>Next</button>
       )}
     </React.Fragment>
   );
