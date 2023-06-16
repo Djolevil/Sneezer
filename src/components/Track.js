@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import classes from './Track.module.css';
 
 const Track = (props) => {
+  const [showPlayer,setShowPlayer] = useState(false);
+
+  const togglePlayerHandler = () => {
+     setShowPlayer(!showPlayer);
+  };
+
   return (
-    <div className={classes.container}>
+    <Fragment>
+    <div className={classes.container} onClick={togglePlayerHandler}>
       <span>{props.title}</span>
       <span>
         {props.artist}
@@ -13,10 +20,11 @@ const Track = (props) => {
         {props.albumTitle}
         <img src={props.albumCover} alt='' />
       </span>
-      <span>
-        <a href={props.preview}>Play preview</a>
-      </span>
     </div>
+    {showPlayer && <div className={classes.player}>
+        <audio src={props.preview} autoPlay controls/>
+      </div>}
+    </Fragment>
   );
 };
 

@@ -8,7 +8,6 @@ const Artist = (props) => {
         {props.artistName}
         <img src={props.artistPicture} alt='' />
       </span>
-      <span>{props.numberOfFans}</span>
     </div>
   );
 };

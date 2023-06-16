@@ -12,7 +12,6 @@ const Album = (props) => {
         {props.artist}
         <img src={props.artistPicture} alt='' />
       </span>
-      <span>{props.numberOfTracks}</span>
     </div>
   );
 };
